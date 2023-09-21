@@ -2,11 +2,7 @@
 
 [CreateAssetMenu(fileName = "SpawnerSettingsSO")]
 public class SpawnerSettingsSO : ScriptableObject{
-    public float minDistance = 2.0f;
-    public float minXOffstet = -10f;
-    public float maxXOffset = 10f;
-    public float minYOffset = -10f;
-    public float maxYOffset = 10f;
+
 
 
     public Vector2 GetSpawnRange(int entityToSpawnCount){

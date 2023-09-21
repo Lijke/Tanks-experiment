@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour{
      [SerializeField] private ObjectPool spawner;
      [SerializeField] private BulletObjectPool _bulletObjectPool;
      [SerializeField] private FinishGameController finishGameController;
+     [SerializeField] Camera _camera;
     public static GameManager Instance{ get; private set; }
 
     private void Awake(){
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour{
         SpawnEnemies(entityCount);
         SpawnBullets();
         InitFinishGameController(entityCount);
+        _camera.orthographicSize = entityCount / 2;
     }
 
     private void InitFinishGameController(int entityCount){

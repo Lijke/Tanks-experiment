@@ -11,17 +11,24 @@ public class UiEntryItem : UiItemBase{
 
     public override void OnPointerEnter(PointerEventData eventData){
         ResetAnimator();
-        animator.SetBool("ScaleUp", true);
+        SetAnimator("ScaleUp",true);
+
     }
 
     
     public override void OnPointerExit(PointerEventData eventData){
         ResetAnimator();
-        animator.SetBool("ScaleDown", true);
+        SetAnimator("ScaleDown", true);
+
     }
     private void ResetAnimator(){
-        animator.SetBool("ScaleUp", false);
-        animator.SetBool("ScaleDown", false);
+        SetAnimator("ScaleUp", false);
+        SetAnimator("ScaleDown", false);
+
+    }
+
+    void SetAnimator(string parameter, bool state){
+        animator.SetBool(parameter,state);
     }
 
     public override void OnPointerClick(PointerEventData eventData){

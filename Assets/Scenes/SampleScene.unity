@@ -873,6 +873,7 @@ MonoBehaviour:
   spawner: {fileID: 766587937}
   _bulletObjectPool: {fileID: 766587938}
   finishGameController: {fileID: 1461868704}
+  _camera: {fileID: 519420031}
 --- !u!114 &1461868704
 MonoBehaviour:
   m_ObjectHideFlags: 0
