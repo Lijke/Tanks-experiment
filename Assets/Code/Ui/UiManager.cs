@@ -25,7 +25,7 @@ public class UiManager : MonoBehaviour, IPopupManager{
     }
 
     private void FindStartingPopup(){
-        var startingPopup = popupList.First(x => x is UiStartPane);
+        UiPopupBase startingPopup = Get(PopupType.MainMenu);
         openPopup = startingPopup;
         Open(openPopup);
     }
@@ -52,6 +52,9 @@ public class UiManager : MonoBehaviour, IPopupManager{
         uiPopupBase.Dispoe();
         uiPopupBase.Close();
     }
-    
+
+    public UiPopupBase Get(PopupType popupType){
+        return popupList.First(x => x.popupType == popupType);
+    }
 
 }

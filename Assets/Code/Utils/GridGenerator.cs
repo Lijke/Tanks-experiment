@@ -1,23 +1,28 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GridGenerator : MonoBehaviour{
 
-    // List to store grid cell positions
+    public static GridGenerator Instance;
+
+
     [SerializeField] private List<Vector3> gridCells = new List<Vector3>();
+    private readonly Vector2 gridResolution = new Vector2(100, 20);
 
-    // Grid resolution
-    private readonly Vector2 gridResolution = new Vector2(50, 20);
+    private void Awake(){
+        Instance = this;
+    }
 
-    // Method to generate the grid
+
     public void GenerateGrid()
     {
         // Get a reference to the main camera
         Camera mainCamera = Camera.main;
 
         // Calculate the step size in the X and Y directions
-        float stepX = Screen.width / gridResolution.x;
+        float stepX = Screen.width / gridResolution.x ;
         float stepY = Screen.height / gridResolution.y;
 
         // Loop through the grid in the X and Y directions

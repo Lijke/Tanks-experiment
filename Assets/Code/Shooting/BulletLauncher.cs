@@ -8,7 +8,8 @@ public class BulletLauncher : MonoBehaviour, ILauncher{
         if (!hitEnemyController.isActive){
             return;
         }
-        var bullet = BulletObjectPool.Instance.GetBullet();
+
+        var bullet = GameManager.Instance.bulletPool.GetFromPool();
         if (bullet == null){
             return;
         }

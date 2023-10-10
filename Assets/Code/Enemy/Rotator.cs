@@ -11,6 +11,14 @@ public class Rotator : MonoBehaviour{
         InvokeRepeating("Rotate",0, enemyRotateStatsSo.rotateInterval);
     }
 
+    private void OnEnable(){
+        InvokeRepeating("Rotate",0, enemyRotateStatsSo.rotateInterval);
+    }
+
+    private void OnDisable(){
+        CancelInvoke("Rotate");
+    }
+
     void Rotate(){
         if (gameObject.activeInHierarchy && !hitEnemyController.isActive){
             return;

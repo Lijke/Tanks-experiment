@@ -8,16 +8,12 @@ public interface IPool{
 }
 public class GenericPool<T> : MonoBehaviour,IPool where T:Component{
   private T prefab;
-  private GridGenerator spawnPoint;
   private Stack<T> elements = new Stack<T>();
 
-  public GenericPool(T prefab, GridGenerator spawnPoint){
+  public GenericPool(T prefab){
     this.prefab = prefab;
-    this.spawnPoint = spawnPoint;
   }
   
-  
-
   public void SpawnObjects(int entityCount){
     int poolSize = entityCount;
     for (int i = 0; i < poolSize; i++){
@@ -27,20 +23,28 @@ public class GenericPool<T> : MonoBehaviour,IPool where T:Component{
 
   private T PreapreSingleObject(){
     var poolObject = Instantiate(prefab);
-    poolObject.gameObject.SetActive(false);
-    poolObject.transform.position = spawnPoint.GetRandomSpawnPos();
+    poolObject.transform.position = GridGenerator.Instance.GetRandomSpawnPos();
     elements.Push(poolObject);
     return poolObject;
   }
 
   public T GetFromPool(){
-    return elements.First(x => !x.gameObject.activeInHierarchy);
+    var element =  elements.First(x => !x.gameObject.activeInHierarchy);
+    if (element == null){
+      return PreapreSingleObject();
+    }
+
+    return element;
   }
 
   public void ReturnToPool(T pooledObject){
     elements.Push(pooledObject);
   }
-  
-  
-  
+
+
+  public void DisableLastEnemy(){
+    var enemy = elements.First(x => x.gameObject.activeInHierarchy);
+    enemy.gameObject.SetActive(false);
+    elements.Push(enemy);
+  }
 }

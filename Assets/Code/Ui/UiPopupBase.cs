@@ -1,17 +1,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UiPopupBase : MonoBehaviour, IPopup{
+public enum PopupType{
+    MainMenu = 0,
+    FinishMenu = 1
+}
 
+
+public abstract class UiPopupBase : MonoBehaviour, IPopup{
+    public abstract PopupType popupType{ get; set; }
     public void Init(){
         
     }
 
-    public void Open(){
+    public virtual void Open(){
         SetActive(true);
     }
 
-    public void Close(){
+    public virtual void Close(){
         SetActive(false);
     }
     
@@ -21,7 +27,5 @@ public class UiPopupBase : MonoBehaviour, IPopup{
 
  
 
-    public void Dispoe(){
-        
-    }
+    public virtual void Dispoe(){ }
 }

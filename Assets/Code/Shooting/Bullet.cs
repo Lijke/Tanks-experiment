@@ -6,10 +6,12 @@ using UnityEngine;
 public class Bullet : MonoBehaviour{
     private Weapon weapon;
     [SerializeField] Rigidbody2D rb;
-    private void Awake(){
-        gameObject.SetActive(false);
-    }
+    [SerializeField] private PoolableObject poolableObject;
 
+    private void Awake(){
+        gameObject.gameObject.SetActive(false);
+    }
+    
     private void OnTriggerEnter2D(Collider2D other){
         if (other.gameObject.CompareTag("Enemy")){
             Health health;
@@ -17,26 +19,21 @@ public class Bullet : MonoBehaviour{
                 health.TakeDamage(weapon.shootingStatsSo.bulletDamage);
             }
         }
-        DisableObject();
-    }
 
-    private void OnCollisionEnter(Collision other){
-        if (other.gameObject.CompareTag("Enemy")){
-            Health health;
-            if (other.gameObject.TryGetComponent<Health>(out health)){
-                health.TakeDamage(weapon.shootingStatsSo.bulletDamage);
-            }
+        if (other.gameObject.CompareTag("Bullet")){
+            DisableObject();
         }
         DisableObject();
     }
 
+    
     public void Init(Weapon weapon, Transform shootingPoint){
         this.weapon = weapon;
         EnableObject();
-        Fly(shootingPoint);
+        AddForce(shootingPoint);
     }
 
-    private void Fly(Transform shootingPoint){
+    private void AddForce(Transform shootingPoint){
         rb.AddForce(shootingPoint.up * weapon.shootingStatsSo.bulletSpeed, ForceMode2D.Impulse);
     }
 
@@ -47,5 +44,6 @@ public class Bullet : MonoBehaviour{
 
     private void DisableObject(){
         gameObject.SetActive(false);
+        GameManager.Instance.bulletPool.ReturnToPool(poolableObject);
     }
 }

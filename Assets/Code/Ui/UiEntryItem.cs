@@ -12,9 +12,8 @@ public class UiEntryItem : UiItemBase{
     public override void OnPointerEnter(PointerEventData eventData){
         ResetAnimator();
         SetAnimator("ScaleUp",true);
-
     }
-
+    
     
     public override void OnPointerExit(PointerEventData eventData){
         ResetAnimator();
@@ -37,8 +36,6 @@ public class UiEntryItem : UiItemBase{
         ResetAnimator();
         RaiseEvent();
         SetSelection(true);
-     
-        
     }
 
     private void RaiseEvent(){

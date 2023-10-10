@@ -3,8 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UiStartPane : UiPopupBase{
-    [SerializeField] private List<UiEntryItem> _entryItems;
+public class MainMenuPane : UiPopupBase{
+    public override PopupType popupType{
+        get{
+            var finishMenu = PopupType.MainMenu;
+            return finishMenu;
+        }
+        set{ }
+    }
+    
     private UiEntryItem currentItem;
     [SerializeField] private UiButton uiButton;
     [SerializeField] private ButtonItemConfigSO buttonItemConfigSo;
@@ -47,4 +54,6 @@ public class UiStartPane : UiPopupBase{
         uiButton.SetupSprite(buttonItemConfigSo.selectedSprite);
         uiButton.EnableExtraIcon(true);
     }
+
+
 }

@@ -21,7 +21,12 @@ public class HitEnemyController : MonoBehaviour{
     }
 
     private void Death(){
-        TurnOffLogic();
+        ReturnToPool();
+    }
+
+    private void ReturnToPool(){
+        gameObject.SetActive(false);
+        GameManager.Instance.enemiesPool.ReturnToPool(GetComponent<PoolableObject>());
     }
 
     private void Reborn(){
@@ -30,18 +35,13 @@ public class HitEnemyController : MonoBehaviour{
     }
 
     private void TurnOffLogic(){
-        var color = new Color(0, 0, 0,0 );
-        spriteRendererBody.color = color;
-        spriteRendererRiffle.color = color;
         boxCollider2D.enabled = false;
-        isActive = false;
+        gameObject.SetActive(false);
     }
 
     void ComeBackFight(){
         isActive = true;
-        var fullColor = new Color(255, 255, 255, 255);
-        spriteRendererBody.color = fullColor;
-        spriteRendererRiffle.color = fullColor;
         boxCollider2D.enabled = true;
+        gameObject.SetActive(true);
     }
 }

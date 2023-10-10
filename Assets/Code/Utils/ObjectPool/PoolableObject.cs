@@ -8,6 +8,10 @@ public class PoolableObject : MonoBehaviour, IPoolable{
         ActivateGameObject(isActiveAfterSpawn);
     }
 
+    public void Reset(){
+        
+    }
+
     private void ActivateGameObject(bool isActiveAfterSpawn){
         gameObject.SetActive(isActiveAfterSpawn);
     }
@@ -16,9 +20,4 @@ public class PoolableObject : MonoBehaviour, IPoolable{
         transform.position = randomSpawnPosition;
     }
 
- 
-
-    public void Reset(){
-        
-    }
 }

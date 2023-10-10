@@ -10,25 +10,26 @@ public class GameManager : MonoBehaviour{
      
     public static GameManager Instance{ get; private set; }
 
-    private GenericPool<PoolableObject> enemiesPool;
+    [HideInInspector] public GenericPool<PoolableObject> enemiesPool;
     [SerializeField] private PoolableObject enemyPrefab;
 
-    private GenericPool<PoolableObject> bulletPool;
+    [HideInInspector] public GenericPool<PoolableObject> bulletPool;
     [SerializeField] private PoolableObject bulletPrefab;
 
     [SerializeField] private GridGenerator gridGenerator;
     private void Awake(){
         Instance = this;
-        SpawnFromPool();
-        gridGenerator.GenerateGrid();
-        
         GameEvents.onGameplayerStarted += StartGameplay;
         GameEvents.onFinishGame += DestroyAllEnemies;
     }
 
+    private void SetupCamera(int entityCount){
+        _camera.orthographicSize = entityCount / 2;
+    }
+
     private void SpawnFromPool(){
-        enemiesPool = new GenericPool<PoolableObject>(enemyPrefab, gridGenerator);
-        bulletPool = new GenericPool<PoolableObject>(bulletPrefab, gridGenerator);
+        enemiesPool = new GenericPool<PoolableObject>(enemyPrefab);
+        bulletPool = new GenericPool<PoolableObject>(bulletPrefab);
     }
 
     private void OnDestroy(){
@@ -37,13 +38,13 @@ public class GameManager : MonoBehaviour{
     }
 
     private void DestroyAllEnemies(){
-       
+        enemiesPool.DisableLastEnemy();
     }
 
     private void StartGameplay(int entityCount){
+        SetupCamera(entityCount);
         SpawnEnemies(entityCount);
         InitFinishGameController(entityCount);
-        _camera.orthographicSize = entityCount / 2;
     }
 
     private void InitFinishGameController(int entityCount){
@@ -51,8 +52,10 @@ public class GameManager : MonoBehaviour{
     }
 
     private void SpawnEnemies(int entityCount){
+        gridGenerator.GenerateGrid();
+        SpawnFromPool();
         enemiesPool.SpawnObjects(entityCount);
-        bulletPool.SpawnObjects(entityCount);
+        bulletPool.SpawnObjects(entityCount*5);
     }
     
 }

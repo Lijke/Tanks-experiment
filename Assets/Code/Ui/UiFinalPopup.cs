@@ -2,10 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class UiFinalPopup : UiPopupBase{
+    public override PopupType popupType{
+        get{
+            var finishMenu = PopupType.FinishMenu;
+            return finishMenu;
+        }
+        set{ }
+    }
     [SerializeField] private UiButton uiButton;
-    [SerializeField] private UiStartPane uiStartPane;
+    [FormerlySerializedAs("uiStartPane")] [SerializeField] private MainMenuPane mainMenuPane;
     private void Awake(){
         uiButton.Init();
         uiButton.buttonClickedEvent.AddListener(OpenMainMenuPane);
@@ -18,6 +26,6 @@ public class UiFinalPopup : UiPopupBase{
     }
 
     private void OpenMainMenuPane(){
-        UiManager.Instance.Open(uiStartPane);
+        UiManager.Instance.Open(mainMenuPane);
     }
 }

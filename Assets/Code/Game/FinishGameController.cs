@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FinishGameController : MonoBehaviour{
-    private float spawnedEnemy;
+    [SerializeField] private float spawnedEnemy;
 
     private void Awake(){
         GameEvents.onEnemyDeath += CountDeath;
